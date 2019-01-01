@@ -1,4 +1,4 @@
-﻿namespace TaxiChain.Repositories.LiteDb
+﻿namespace TaxiChain.Repositories
 {
     using System.Linq;
     using System.Collections.Generic;
@@ -15,17 +15,17 @@
     /// </summary>
     /// <seealso cref="NBlockchain.Services.Database.InstructionRepository" />
     /// <seealso cref="TaxiChain.Repositories.ITaxiInstructionRepository" />
-    public class TaxiInstructionRepository : InstructionRepository, ITaxiInstructionRepository
+    public class TaxiInstructionLiteDbRepository : InstructionRepository, Contracts.ITaxiInstructionRepository
     {
         private IAddressEncoder addressEncoder;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TaxiInstructionRepository" /> class.
+        /// Initializes a new instance of the <see cref="TaxiInstructionLiteDbRepository" /> class.
         /// </summary>
         /// <param name="loggerFactory">The logger factory.</param>
         /// <param name="dataConnection">The data connection.</param>
         /// <param name="addressEncoder">The address encoder.</param>
-        public TaxiInstructionRepository(ILoggerFactory loggerFactory, IDataConnection dataConnection, IAddressEncoder addressEncoder)
+        public TaxiInstructionLiteDbRepository(ILoggerFactory loggerFactory, IDataConnection dataConnection, IAddressEncoder addressEncoder)
          : base(loggerFactory, dataConnection)
         {
             this.addressEncoder = addressEncoder;

@@ -22,14 +22,14 @@
             string passphrase, 
             uint port = 10850)
         {
-            services.AddBlockchain(x =>
+            services.AddBlockchain(setup =>
             {
-                x.UseDataConnection("node.db");
-                x.UseInstructionRepository<Repositories.ITaxiInstructionRepository, Repositories.LiteDb.TaxiInstructionRepository>();
-                x.UseTcpPeerNetwork(port);
-                x.UseMulticastDiscovery("My Currency", "224.100.0.1", 8088);
-                x.AddInstructionType<Transactions.RequestDriverInstruction>();
-                x.UseParameters(new StaticNetworkParameters()
+                setup.UseDataConnection("node.db");
+                setup.UseInstructionRepository<Repositories.Contracts.ITaxiInstructionRepository, Repositories.TaxiInstructionLiteDbRepository>();
+                setup.UseTcpPeerNetwork(port);
+                setup.UseMulticastDiscovery("My Currency", "224.100.0.1", 8088);
+                setup.AddInstructionType<Transactions.RequestDriverInstruction>();
+                setup.UseParameters(new StaticNetworkParameters()
                 {
                     BlockTime = TimeSpan.FromSeconds(120),
                     HeaderVersion = 1

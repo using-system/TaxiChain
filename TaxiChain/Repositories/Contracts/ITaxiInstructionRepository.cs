@@ -1,4 +1,4 @@
-﻿namespace TaxiChain.Repositories
+﻿namespace TaxiChain.Repositories.Contracts
 {
     using System.Collections.Generic;
 
