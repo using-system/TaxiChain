@@ -29,7 +29,8 @@
                 setup.UseDataConnection("node.db");
                 setup.UseInstructionRepository<Repositories.Contracts.ITaxiInstructionRepository, Repositories.TaxiInstructionLiteDbRepository>();
                 setup.UseTcpPeerNetwork(port);
-                setup.UseMulticastDiscovery("My Currency", "224.100.0.1", 8088);
+                setup.UseUpnpAutoNatTraversal("TaxiChain");
+                //setup.UseMulticastDiscovery("TaxiChain", "224.100.0.1", 8088);
                 setup.AddInstructionType<Transactions.RequestDriverInstruction>();
                 setup.UseBlockbaseProvider<Transactions.TaxiChainTransactionBuilder>();
                 setup.UseParameters(new StaticNetworkParameters()

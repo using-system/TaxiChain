@@ -1,5 +1,7 @@
 ﻿namespace TaxiChain.Services
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using NBlockchain.Interfaces;
@@ -23,23 +25,33 @@
 
         private IBlockMiner blockMiner;
 
+        private ITransactionBuilder transactionBuilder;
+
+        private IBlockchainNode blockchainNode;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="TaxiChainService"/> class.
+        /// Initializes a new instance of the <see cref="TaxiChainService" /> class.
         /// </summary>
         /// <param name="configuration">The configuration.</param>
         /// <param name="network">The network.</param>
         /// <param name="signatureService">The signature service.</param>
         /// <param name="addressEncoder">The address encoder.</param>
-        public TaxiChainService(TaxiChainConfiguration configuration, 
+        /// <param name="blockMiner">The block miner.</param>
+        /// <param name="transactionBuilder">The transaction builder.</param>
+        public TaxiChainService(TaxiChainConfiguration configuration,
             IPeerNetwork network,
             ISignatureService signatureService,
             IAddressEncoder addressEncoder,
-            IBlockMiner blockMiner)
+            IBlockMiner blockMiner,
+            ITransactionBuilder transactionBuilder,
+            IBlockchainNode blockchainNode)
         {
             this.network = network;
             this.signatureService = signatureService;
             this.addressEncoder = addressEncoder;
             this.blockMiner = blockMiner;
+            this.transactionBuilder = transactionBuilder;
+            this.blockchainNode = blockchainNode;
 
             this.keys = this.signatureService.GetKeyPairFromPhrase(configuration.Passphrase);
         }
@@ -66,7 +78,26 @@
 
             return Task.CompletedTask;
         }
+        /// <summary>
+        /// Requests the driver asynchronous.
+        /// </summary>
+        /// <param name="startPosition">The start position.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task<string> RequestDriverAsync(Position startPosition)
+        {
+            var instruction = new Transactions.RequestDriverInstruction()
+            {
+                Start = startPosition,
+                PublicKey = this.keys.PublicKey
+            };
 
+            this.signatureService.SignInstruction(instruction, this.keys.PrivateKey);
+            var transaction = await this.transactionBuilder.Build(new List<Instruction>() { instruction });
+            await this.blockchainNode.SendTransaction(transaction);
+
+            return BitConverter.ToString(transaction.TransactionId);
+        }
 
         /// <summary>
         /// Stops the mine asynchronous.
@@ -87,5 +118,7 @@
             this.network?.Close();
             this.network = null;
         }
+
+
     }
 }

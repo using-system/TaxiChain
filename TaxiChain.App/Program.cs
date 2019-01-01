@@ -29,7 +29,7 @@
                   })
                   .ConfigureLogging((hostingContext, logging) => {
                       logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                      //logging.AddConsole();
+                      logging.AddConsole();
                   });
 
             await builder.RunConsoleAsync();

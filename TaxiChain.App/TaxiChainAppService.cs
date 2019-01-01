@@ -29,9 +29,11 @@
             await this.ExecuteCommand();
         }
 
-        public async  Task StopAsync(CancellationToken cancellationToken)
+        public  Task StopAsync(CancellationToken cancellationToken)
         {
             this.logger.LogInformation("TaxiChain app stopped");
+
+            return Task.CompletedTask;
         }
 
         private async Task ExecuteCommand()
@@ -49,6 +51,18 @@
                     case "startminegenesis":
                         await this.taxiChainService.StartMineAsync(true);
                         Console.WriteLine("Mining started");
+                        break;
+                    case "requestdriver":
+                        Console.WriteLine("Latitude ?");
+                        double.TryParse(Console.ReadLine(), out double latitude);
+                        Console.WriteLine("Logitude ?");
+                        double.TryParse(Console.ReadLine(), out double longitude);
+                        string transactionID = await this.taxiChainService.RequestDriverAsync(new Model.Position()
+                        {
+                            Latitude = latitude,
+                            Longitude = longitude
+                        });
+                        Console.WriteLine($"Transaction {transactionID} confirmed !");
                         break;
                     case "stopmine":
                         await this.taxiChainService.StopMineAsync();
