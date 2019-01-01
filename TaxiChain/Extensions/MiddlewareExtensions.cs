@@ -6,6 +6,8 @@
 
     using NBlockchain.Models;
 
+    using TaxiChain.Model;
+
     /// <summary>
     /// Middleware Extension methods
     /// </summary>
@@ -34,6 +36,12 @@
                     BlockTime = TimeSpan.FromSeconds(120),
                     HeaderVersion = 1
                 });
+            });
+
+            services.AddSingleton<TaxiChainConfiguration>(provider => new TaxiChainConfiguration()
+            {
+                Passphrase = passphrase,
+                Port = port
             });
 
             return services;
