@@ -85,6 +85,15 @@
         }
 
         /// <summary>
+        /// Searches the customers.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null)
+        {
+            return await this.taxiInstructionRepository.SearchCustomersAsync(nearBy);
+        }
+
+        /// <summary>
         /// Requests the driver asynchronous.
         /// </summary>
         /// <param name="startPosition">The start position.</param>
@@ -106,12 +115,23 @@
         }
 
         /// <summary>
-        /// Searches the customers.
+        /// Accepts the request.
         /// </summary>
+        /// <param name="customerAddress">The customer address.</param>
         /// <returns></returns>
-        public async Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null)
+        public async Task<string> AcceptRequestAsync(string customerAddress)
         {
-            return await this.taxiInstructionRepository.SearchCustomersAsync(nearBy);
+            var instruction = new Transactions.AcceptReqestInstruction()
+            {
+                CustomerAddress = customerAddress,
+                PublicKey = this.keys.PublicKey
+            };
+
+            this.signatureService.SignInstruction(instruction, this.keys.PrivateKey);
+            var transaction = await this.transactionBuilder.Build(new List<Instruction>() { instruction });
+            await this.blockchainNode.SendTransaction(transaction);
+
+            return BitConverter.ToString(transaction.TransactionId);
         }
 
         /// <summary>
@@ -133,5 +153,7 @@
             this.network?.Close();
             this.network = null;
         }
+
+
     }
 }

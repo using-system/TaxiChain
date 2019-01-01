@@ -32,6 +32,9 @@
                 setup.UseUpnpAutoNatTraversal("TaxiChain");
                 //setup.UseMulticastDiscovery("TaxiChain", "224.100.0.1", 8088);
                 setup.AddInstructionType<Transactions.RequestDriverInstruction>();
+
+                setup.AddTransactionRule<Rules.AcceptExistingRequestRule>();
+
                 setup.UseBlockbaseProvider<Transactions.TaxiChainTransactionBuilder>();
                 setup.UseParameters(new StaticNetworkParameters()
                 {

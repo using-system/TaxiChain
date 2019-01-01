@@ -26,6 +26,13 @@
         Task StartMineAsync(bool genesis);
 
         /// <summary>
+        /// Searches the customers.
+        /// </summary>
+        /// <param name="nearBy">The near by.</param>
+        /// <returns></returns>
+        Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null);
+
+        /// <summary>
         /// Requests the driver asynchronous.
         /// </summary>
         /// <param name="startPosition">The start position.</param>
@@ -33,11 +40,11 @@
         Task<string> RequestDriverAsync(Position startPosition);
 
         /// <summary>
-        /// Searches the customers.
+        /// Accepts the request.
         /// </summary>
-        /// <param name="nearBy">The near by.</param>
+        /// <param name="customerAddress">The customer address.</param>
         /// <returns></returns>
-        Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null);
+        Task<string> AcceptRequestAsync(string customerAddress);
         
         /// <summary>
         /// Stops the mine asynchronous.

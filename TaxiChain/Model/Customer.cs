@@ -20,5 +20,7 @@
         /// The position.
         /// </value>
         public Position Position { get; set; }
+
+        
     }
 }
