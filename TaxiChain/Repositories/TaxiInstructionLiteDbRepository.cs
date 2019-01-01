@@ -1,6 +1,7 @@
 ﻿namespace TaxiChain.Repositories
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@
     using NBlockchain.Services.Database;
 
     using TaxiChain.Model;
+
 
     /// <summary>
     /// Taxi Instruction Repository
@@ -36,13 +38,20 @@
         /// </summary>
         /// <param name="position">The position.</param>
         /// <returns></returns>
-        public IEnumerable<string> SearchCustomers(Position position)
+        public Task<IEnumerable<Customer>> SearchCustomersAsync(Position position)
+
         {
-            return this.Instructions
+            var customers = this.Instructions
                 .FindAll()
                 .Select(x => x.Entity)
                 .OfType<Transactions.RequestDriverInstruction>()
-                .Select(instruction => this.addressEncoder.EncodeAddress(instruction.PublicKey, 0));
+                .Select(instruction => new Customer()
+                {
+                    Address = this.addressEncoder.EncodeAddress(instruction.PublicKey, 0),
+                    Position = instruction.Start
+                });
+
+            return Task.FromResult(customers);
         }
     }
 }

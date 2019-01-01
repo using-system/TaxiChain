@@ -8,6 +8,7 @@
     using NBlockchain.Models;
 
     using TaxiChain.Model;
+    using Repositories.Contracts;
 
     /// <summary>
     /// Taxi Chain Service
@@ -29,6 +30,8 @@
 
         private IBlockchainNode blockchainNode;
 
+        private ITaxiInstructionRepository taxiInstructionRepository;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TaxiChainService" /> class.
         /// </summary>
@@ -44,7 +47,8 @@
             IAddressEncoder addressEncoder,
             IBlockMiner blockMiner,
             ITransactionBuilder transactionBuilder,
-            IBlockchainNode blockchainNode)
+            IBlockchainNode blockchainNode,
+            ITaxiInstructionRepository taxiInstructionRepository)
         {
             this.network = network;
             this.signatureService = signatureService;
@@ -52,6 +56,7 @@
             this.blockMiner = blockMiner;
             this.transactionBuilder = transactionBuilder;
             this.blockchainNode = blockchainNode;
+            this.taxiInstructionRepository = taxiInstructionRepository;
 
             this.keys = this.signatureService.GetKeyPairFromPhrase(configuration.Passphrase);
         }
@@ -78,6 +83,7 @@
 
             return Task.CompletedTask;
         }
+
         /// <summary>
         /// Requests the driver asynchronous.
         /// </summary>
@@ -100,6 +106,15 @@
         }
 
         /// <summary>
+        /// Searches the customers.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null)
+        {
+            return await this.taxiInstructionRepository.SearchCustomersAsync(nearBy);
+        }
+
+        /// <summary>
         /// Stops the mine asynchronous.
         /// </summary>
         /// <returns></returns>
@@ -118,7 +133,5 @@
             this.network?.Close();
             this.network = null;
         }
-
-
     }
 }

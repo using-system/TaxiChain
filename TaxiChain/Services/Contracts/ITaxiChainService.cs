@@ -1,6 +1,7 @@
 ﻿namespace TaxiChain.Services.Contracts
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using TaxiChain.Model;
@@ -30,6 +31,13 @@
         /// <param name="startPosition">The start position.</param>
         /// <returns></returns>
         Task<string> RequestDriverAsync(Position startPosition);
+
+        /// <summary>
+        /// Searches the customers.
+        /// </summary>
+        /// <param name="nearBy">The near by.</param>
+        /// <returns></returns>
+        Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null);
         
         /// <summary>
         /// Stops the mine asynchronous.

@@ -52,7 +52,7 @@
                         await this.taxiChainService.StartMineAsync(true);
                         Console.WriteLine("Mining started");
                         break;
-                    case "requestdriver":
+                    case "request":
                         Console.WriteLine("Latitude ?");
                         double.TryParse(Console.ReadLine(), out double latitude);
                         Console.WriteLine("Logitude ?");
@@ -63,6 +63,13 @@
                             Longitude = longitude
                         });
                         Console.WriteLine($"Transaction {transactionID} confirmed !");
+                        break;
+                    case "list":
+                        var customers = await this.taxiChainService.SearchCustomersAsync();
+                        foreach(var customer in customers)
+                        {
+                            Console.WriteLine($"Customer {customer.Address} is on Latitude {customer.Position?.Latitude} and Longitude {customer.Position?.Longitude}");
+                        }
                         break;
                     case "stopmine":
                         await this.taxiChainService.StopMineAsync();

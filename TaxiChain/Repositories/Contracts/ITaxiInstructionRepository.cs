@@ -1,6 +1,7 @@
 ﻿namespace TaxiChain.Repositories.Contracts
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using TaxiChain.Model;
 
@@ -14,6 +15,6 @@
         /// </summary>
         /// <param name="position">The position.</param>
         /// <returns></returns>
-        IEnumerable<string> SearchCustomers(Position position);
+        Task<IEnumerable<Customer>> SearchCustomersAsync(Position position);
     }
 }
