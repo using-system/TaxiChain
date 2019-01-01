@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiChain", "TaxiChain\TaxiChain.csproj", "{AD004121-8E93-4E34-A912-3732CE10E247}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77AB5619-D734-486E-A26E-E5EE9DB294D5}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD004121-8E93-4E34-A912-3732CE10E247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD004121-8E93-4E34-A912-3732CE10E247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD004121-8E93-4E34-A912-3732CE10E247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD004121-8E93-4E34-A912-3732CE10E247}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62B6BDD7-F9EC-43EB-B2F6-91696548628E}
+	EndGlobalSection
+EndGlobal
