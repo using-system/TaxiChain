@@ -7,15 +7,17 @@
     /// <summary>
     /// Accept Reqest Instruction
     /// </summary>
+    [InstructionType("acceptrequest-v1")]
     public class AcceptReqestInstruction : Instruction
     {
+
         /// <summary>
-        /// Gets or sets the customer.
+        /// Gets or sets the request identifier.
         /// </summary>
         /// <value>
-        /// The customer.
+        /// The request identifier.
         /// </value>
-        public string CustomerAddress { get; set; }
+        public byte[] RequestID { get; set; }
 
         /// <summary>
         /// Extracts the signable elements.
@@ -23,7 +25,7 @@
         /// <returns></returns>
         public override ICollection<byte[]> ExtractSignableElements()
         {
-            return new List<byte[]>() { System.Text.Encoding.Unicode.GetBytes(this.CustomerAddress)};
+            return new List<byte[]>() { this.RequestID };
         }
     }
 }

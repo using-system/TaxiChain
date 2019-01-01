@@ -26,11 +26,11 @@
         Task StartMineAsync(bool genesis);
 
         /// <summary>
-        /// Searches the customers.
+        /// Searches the customer requests asynchronous.
         /// </summary>
         /// <param name="nearBy">The near by.</param>
         /// <returns></returns>
-        Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null);
+        Task<IEnumerable<CustomerRequest>> SearchCustomerRequestsAsync(Position nearBy = null);
 
         /// <summary>
         /// Requests the driver asynchronous.
@@ -39,12 +39,13 @@
         /// <returns></returns>
         Task<string> RequestDriverAsync(Position startPosition);
 
+
         /// <summary>
-        /// Accepts the request.
+        /// Accepts the request asynchronous.
         /// </summary>
-        /// <param name="customerAddress">The customer address.</param>
+        /// <param name="requestID">The request identifier.</param>
         /// <returns></returns>
-        Task<string> AcceptRequestAsync(string customerAddress);
+        Task<string> AcceptRequestAsync(byte[] requestID);
         
         /// <summary>
         /// Stops the mine asynchronous.

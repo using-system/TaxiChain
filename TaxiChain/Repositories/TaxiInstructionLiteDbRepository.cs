@@ -38,17 +38,17 @@
         /// </summary>
         /// <param name="position">The position.</param>
         /// <returns></returns>
-        public Task<IEnumerable<Customer>> SearchCustomersAsync(Position position)
-
+        public Task<IEnumerable<CustomerRequest>> SearchCustomerRequestsAsync(Position position)
         {
             var customers = this.Instructions
                 .FindAll()
                 .Select(x => x.Entity)
                 .OfType<Transactions.RequestDriverInstruction>()
-                .Select(instruction => new Customer()
+                .Select(instruction => new CustomerRequest()
                 {
-                    Address = this.addressEncoder.EncodeAddress(instruction.PublicKey, 0),
-                    Position = instruction.Start
+                    Customer = instruction.PublicKey,
+                    Position = instruction.Start,
+                    RequestID = instruction.InstructionId
                 });
 
             return Task.FromResult(customers);

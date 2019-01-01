@@ -15,6 +15,6 @@
         /// </summary>
         /// <param name="position">The position.</param>
         /// <returns></returns>
-        Task<IEnumerable<Customer>> SearchCustomersAsync(Position position);
+        Task<IEnumerable<CustomerRequest>> SearchCustomerRequestsAsync(Position position);
     }
 }

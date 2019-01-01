@@ -88,9 +88,9 @@
         /// Searches the customers.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Customer>> SearchCustomersAsync(Position nearBy = null)
+        public async Task<IEnumerable<CustomerRequest>> SearchCustomerRequestsAsync(Position nearBy = null)
         {
-            return await this.taxiInstructionRepository.SearchCustomersAsync(nearBy);
+            return await this.taxiInstructionRepository.SearchCustomerRequestsAsync(nearBy);
         }
 
         /// <summary>
@@ -117,13 +117,13 @@
         /// <summary>
         /// Accepts the request.
         /// </summary>
-        /// <param name="customerAddress">The customer address.</param>
+        /// <param name="requestID">The request identifier.</param>
         /// <returns></returns>
-        public async Task<string> AcceptRequestAsync(string customerAddress)
+        public async Task<string> AcceptRequestAsync(byte[] requestID)
         {
             var instruction = new Transactions.AcceptReqestInstruction()
             {
-                CustomerAddress = customerAddress,
+                RequestID = requestID,
                 PublicKey = this.keys.PublicKey
             };
 

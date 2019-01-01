@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Text;
 
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
@@ -53,10 +54,10 @@
                         Console.WriteLine("Mining started");
                         break;
                     case "list":
-                        var customers = await this.taxiChainService.SearchCustomersAsync();
-                        foreach (var customer in customers)
+                        var requests = await this.taxiChainService.SearchCustomerRequestsAsync();
+                        foreach (var request in requests)
                         {
-                            Console.WriteLine($"Customer {customer.Address} is on Latitude {customer.Position?.Latitude} and Longitude {customer.Position?.Longitude}");
+                            Console.WriteLine($"Customer {Encoding.Default.GetString(request.RequestID)} is on Latitude {request.Position?.Latitude} and Longitude {request.Position?.Longitude}");
                         }
                         break;
                     case "request":
@@ -73,7 +74,7 @@
                         break;
                     case "accept":
                         Console.WriteLine("Address ?");
-                        string acceptTransactionID = await this.taxiChainService.AcceptRequestAsync(Console.ReadLine());
+                        string acceptTransactionID = await this.taxiChainService.AcceptRequestAsync(Encoding.Default.GetBytes(Console.ReadLine()));
                         Console.WriteLine($"Transaction {acceptTransactionID} sended !");
                         break;
                     case "stopmine":

@@ -36,6 +36,7 @@ namespace NBlockchain.Interfaces
 
         public IEnumerable<Mapping> GetAllMappings()
         {
+            return new List<Mapping>();
             var mappingsTask = _device.GetAllMappingsAsync();
             mappingsTask.Wait();
             return mappingsTask.Result;
