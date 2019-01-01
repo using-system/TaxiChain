@@ -31,6 +31,7 @@
                 setup.UseTcpPeerNetwork(port);
                 setup.UseMulticastDiscovery("My Currency", "224.100.0.1", 8088);
                 setup.AddInstructionType<Transactions.RequestDriverInstruction>();
+                setup.UseBlockbaseProvider<Transactions.TaxiChainTransactionBuilder>();
                 setup.UseParameters(new StaticNetworkParameters()
                 {
                     BlockTime = TimeSpan.FromSeconds(120),
@@ -43,6 +44,7 @@
                 Passphrase = passphrase,
                 Port = port
             });
+            services.AddSingleton<Services.Contracts.ITaxiChainService, Services.TaxiChainService>();
 
             return services;
         }

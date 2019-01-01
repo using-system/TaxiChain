@@ -14,5 +14,18 @@
         /// </summary>
         /// <returns></returns>
         Task OpenNetworkAsync();
+
+        /// <summary>
+        /// Mines the asynchronous.
+        /// </summary>
+        /// <param name="genesis">if set to <c>true</c> [genesis].</param>
+        /// <returns></returns>
+        Task StartMineAsync(bool genesis);
+        
+        /// <summary>
+        /// Stops the mine asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        Task StopMineAsync();
     }
 }
