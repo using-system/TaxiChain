@@ -11,6 +11,7 @@
     /// Request Driver Instruction
     /// </summary>
     /// <seealso cref="NBlockchain.Models.Instruction" />
+    [InstructionType("requestdriver-v1")]
     public class RequestDriverInstruction : Instruction
     {
         /// <summary>
