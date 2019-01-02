@@ -23,10 +23,10 @@
 
         public int Validate(Transaction transaction, ICollection<Transaction> siblings)
         {
-            var requests = this.taxiInstructionRepository.SearchCustomerRequestsAsync(null).Result;
             foreach (var instruction in transaction.Instructions.OfType<Transactions.AcceptReqestInstruction>())
             {
-                if(!requests.Any(request => request.RequestID == instruction.RequestID))
+                var request = this.taxiInstructionRepository.GetCustomerRequestAsync(instruction.RequestID).Result;
+                if(request == null)
                 {
                     return -1;
                 }

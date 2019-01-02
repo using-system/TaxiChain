@@ -1,4 +1,7 @@
-﻿namespace TaxiChain.Repositories
+﻿using System;
+using LiteDB;
+
+namespace TaxiChain.Repositories
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -52,6 +55,28 @@
                 });
 
             return Task.FromResult(customers);
+        }
+
+        /// <summary>
+        /// Gets the customer request asynchronous.
+        /// </summary>
+        /// <param name="requestID">The request identifier.</param>
+        /// <returns></returns>
+        public Task<CustomerRequest> GetCustomerRequestAsync(Byte[] requestID)
+        {
+            var request = this.Instructions
+                .Find(Query.EQ("Entity.InstructionId", requestID))
+                .Select(x => x.Entity)
+                .OfType<Transactions.RequestDriverInstruction>()
+                .Select(instruction => new CustomerRequest()
+                {
+                    Customer = instruction.PublicKey,
+                    Position = instruction.Start,
+                    RequestID = instruction.InstructionId
+                })
+                .SingleOrDefault();
+
+            return Task.FromResult(request);
         }
     }
 }

@@ -28,7 +28,7 @@
 
         private ITransactionBuilder transactionBuilder;
 
-        private IBlockchainNode blockchainNode;
+        private IBlockchainHost blockchainNode;
 
         private ITaxiInstructionRepository taxiInstructionRepository;
 
@@ -47,7 +47,7 @@
             IAddressEncoder addressEncoder,
             IBlockMiner blockMiner,
             ITransactionBuilder transactionBuilder,
-            IBlockchainNode blockchainNode,
+            IBlockchainHost blockchainNode,
             ITaxiInstructionRepository taxiInstructionRepository)
         {
             this.network = network;
