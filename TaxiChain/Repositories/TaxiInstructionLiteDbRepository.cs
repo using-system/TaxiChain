@@ -65,7 +65,7 @@ namespace TaxiChain.Repositories
         public Task<CustomerRequest> GetCustomerRequestAsync(Byte[] requestID)
         {
             var request = this.Instructions
-                .Find(Query.EQ("Entity.InstructionId", requestID))
+                .Find(entity => entity.Entity.InstructionId == requestID)
                 .Select(x => x.Entity)
                 .OfType<Transactions.RequestDriverInstruction>()
                 .Select(instruction => new CustomerRequest()
