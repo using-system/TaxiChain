@@ -32,8 +32,10 @@
         protected override ICollection<Instruction> BuildInstructions(KeyPair builderKeys, ICollection<Transaction> transactions)
         {
             var result = new List<Instruction>();
-            var instruction = new RequestDriverInstruction
+
+            var instruction = new BlockRewardInstruction()
             {
+                Amount = -100,
                 PublicKey = builderKeys.PublicKey
             };
 
