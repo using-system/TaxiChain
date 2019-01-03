@@ -24,5 +24,19 @@
         /// <param name="requestID">The request identifier.</param>
         /// <returns></returns>
         Task<CustomerRequest> GetCustomerRequestAsync(Byte[] requestID);
+
+        /// <summary>
+        /// Gets the number of driver requests asynchronous.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        /// <returns></returns>
+        Task<int> GetNumberOfDriverRequestsAsync(Byte[] customer);
+
+        /// <summary>
+        /// Gets the number of accepted requests a dsync.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        /// <returns></returns>
+        Task<int> GetNumberOfAcceptedRequestsAsync(Byte[] customer);
     }
 }

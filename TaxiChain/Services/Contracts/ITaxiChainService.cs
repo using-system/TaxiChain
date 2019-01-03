@@ -43,9 +43,10 @@
         /// <summary>
         /// Accepts the request asynchronous.
         /// </summary>
+        /// <param name="customer">The customer.</param>
         /// <param name="requestID">The request identifier.</param>
         /// <returns></returns>
-        Task<string> AcceptRequestAsync(byte[] requestID);
+        Task<string> AcceptRequestAsync(byte[] customer, byte[] requestID);
         
         /// <summary>
         /// Stops the mine asynchronous.

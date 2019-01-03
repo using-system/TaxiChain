@@ -1,8 +1,6 @@
-﻿using System;
-using LiteDB;
-
-namespace TaxiChain.Repositories
+﻿namespace TaxiChain.Repositories
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Collections.Generic;
@@ -12,8 +10,9 @@ namespace TaxiChain.Repositories
     using NBlockchain.Interfaces;
     using NBlockchain.Services.Database;
 
-    using TaxiChain.Model;
+    using LiteDB;
 
+    using TaxiChain.Model;
 
     /// <summary>
     /// Taxi Instruction Repository
@@ -30,8 +29,9 @@ namespace TaxiChain.Repositories
         /// <param name="loggerFactory">The logger factory.</param>
         /// <param name="dataConnection">The data connection.</param>
         /// <param name="addressEncoder">The address encoder.</param>
-        public TaxiInstructionLiteDbRepository(ILoggerFactory loggerFactory, IDataConnection dataConnection, IAddressEncoder addressEncoder)
-         : base(loggerFactory, dataConnection)
+        public TaxiInstructionLiteDbRepository(ILoggerFactory loggerFactory, IDataConnection dataConnection,
+            IAddressEncoder addressEncoder)
+            : base(loggerFactory, dataConnection)
         {
             this.addressEncoder = addressEncoder;
         }
@@ -77,6 +77,36 @@ namespace TaxiChain.Repositories
                 .SingleOrDefault();
 
             return Task.FromResult(request);
+        }
+
+        /// <summary>
+        /// Gets the number of requests.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        /// <returns></returns>
+        public Task<int> GetNumberOfDriverRequestsAsync(Byte[] customer)
+        {
+            var count = this.Instructions
+                .Find(entity => entity.Statistics.PublicKeyHash == customer)
+                .OfType<Transactions.RequestDriverInstruction>()
+                .Count();
+
+            return Task.FromResult(count);
+        }
+
+        /// <summary>
+        /// Gets the number of accepted requests.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        /// <returns></returns>
+        public Task<int> GetNumberOfAcceptedRequestsAsync(Byte[] customer)
+        {
+            var count = this.Instructions
+                .Find(Query.EQ("Entity.Customer", customer))
+                .OfType<Transactions.AcceptReqestInstruction>()             
+                .Count();
+
+            return Task.FromResult(count);
         }
     }
 }

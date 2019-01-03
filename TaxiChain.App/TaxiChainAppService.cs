@@ -57,7 +57,7 @@
                         var requests = await this.taxiChainService.SearchCustomerRequestsAsync();
                         foreach (var request in requests)
                         {
-                            Console.WriteLine($"Customer request {Convert.ToBase64String(request.RequestID)} is on Latitude {request.Position?.Latitude} and Longitude {request.Position?.Longitude}");
+                            Console.WriteLine($"Customer {Convert.ToBase64String(request.Customer)}, request {Convert.ToBase64String(request.RequestID)} is on Latitude {request.Position?.Latitude} and Longitude {request.Position?.Longitude}");
                         }
                         break;
                     case "request":
@@ -73,9 +73,12 @@
                         Console.WriteLine($"Transaction {transactionID} sended !");
                         break;
                     case "accept":
-                        Console.WriteLine("Address ?");
-                        string acceptTransactionID = await this.taxiChainService.AcceptRequestAsync(Convert.FromBase64String(Console.ReadLine()));
-                        Console.WriteLine($"Transaction {acceptTransactionID} sended !");
+                        Console.WriteLine("Customer ?");
+                        string customerID = Console.ReadLine();
+                        Console.WriteLine("Request ?");
+                        string requestID = Console.ReadLine();
+                        await this.taxiChainService.AcceptRequestAsync(Convert.FromBase64String(customerID), Convert.FromBase64String(requestID));
+                        Console.WriteLine($"Transaction  sended !");
                         break;
                     case "stopmine":
                         await this.taxiChainService.StopMineAsync();

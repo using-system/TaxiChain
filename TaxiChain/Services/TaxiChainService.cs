@@ -117,12 +117,14 @@
         /// <summary>
         /// Accepts the request.
         /// </summary>
+        /// <param name="customer">The customer.</param>
         /// <param name="requestID">The request identifier.</param>
         /// <returns></returns>
-        public async Task<string> AcceptRequestAsync(byte[] requestID)
+        public async Task<string> AcceptRequestAsync(byte[] customer, byte[] requestID)
         {
             var instruction = new Transactions.AcceptReqestInstruction()
             {
+                Customer = customer,
                 RequestID = requestID,
                 PublicKey = this.keys.PublicKey
             };

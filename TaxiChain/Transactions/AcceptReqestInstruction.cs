@@ -10,6 +10,13 @@
     [InstructionType("acceptrequest-v1")]
     public class AcceptReqestInstruction : Instruction
     {
+        /// <summary>
+        /// Gets or sets the request identifier.
+        /// </summary>
+        /// <value>
+        /// The request identifier.
+        /// </value>
+        public byte[] Customer { get; set; }
 
         /// <summary>
         /// Gets or sets the request identifier.
