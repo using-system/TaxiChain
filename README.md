@@ -1,2 +1,2 @@
 # TaxiChain
-Blockchain-based taxi platform
+Blockchain-based taxi platform Sample
