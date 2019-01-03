@@ -31,10 +31,13 @@
                 setup.UseTcpPeerNetwork(port);
                 //setup.UseMulticastDiscovery("TaxiChain", "224.100.0.1", 8088);
                 //setup.UseUpnpAutoNatTraversal("TaxiChain");
+
+                setup.AddInstructionType<Transactions.BlockRewardInstruction>();
                 setup.AddInstructionType<Transactions.RequestDriverInstruction>();
                 setup.AddInstructionType<Transactions.AcceptReqestInstruction>();
 
                 setup.AddTransactionRule<Rules.AcceptExistingRequestRule>();
+                setup.AddTransactionRule<Rules.RequestPositionRule>();
 
                 setup.UseBlockbaseProvider<Transactions.TaxiChainTransactionBuilder>();
                 setup.UseParameters(new StaticNetworkParameters()
